@@ -1,0 +1,250 @@
+import {
+  BarChart3,
+  Bitcoin,
+  CandlestickChart,
+  Grid3X3,
+  LineChart,
+  List,
+  Newspaper,
+  PieChart,
+  ScrollText,
+  Sparkles,
+  SquareActivity,
+  Tag,
+  Thermometer,
+  TrendingUp,
+  Zap,
+} from 'lucide-react';
+
+import type { WidgetDefinition, CategoryEntry } from 'dashboard-pkg';
+
+import { PortfolioOverviewContent } from '../portfolio-overview';
+import { QuickStatsContent } from '../quick-stats';
+import { AssetAllocationContent } from '../asset-allocation';
+import { MarketMoversContent } from '../market-movers';
+import { RecentTransactionsContent } from '../recent-transactions';
+import { BtcCyclesContent } from '../btc-cycles';
+import { TopStoriesContent } from '../top-stories';
+
+import { TvAdvancedChartContent } from './tradingview/tv-advanced-chart';
+import { TvMiniChartContent } from './tradingview/tv-mini-chart';
+import { TvSymbolOverviewContent } from './tradingview/tv-symbol-overview';
+import { TvTickerTapeContent } from './tradingview/tv-ticker-tape';
+import { TvSingleTickerContent } from './tradingview/tv-single-ticker';
+import { TvScreenerContent } from './tradingview/tv-screener';
+import { TvHeatmapContent } from './tradingview/tv-heatmap';
+import { TvTechnicalAnalysisContent } from './tradingview/tv-technical-analysis';
+
+export const widgetRegistry: WidgetDefinition[] = [
+  // Portfolio widgets
+  {
+    type: 'portfolio-overview',
+    name: 'Portfolio Overview',
+    description: 'Total portfolio value with 24h change and key stats',
+    icon: TrendingUp,
+    category: 'portfolio',
+    defaultSize: { w: 3, h: 3 },
+    minSize: { minW: 2, minH: 2 },
+    supportsFullscreen: false,
+    requiresSymbol: false,
+    component: PortfolioOverviewContent,
+  },
+  {
+    type: 'quick-stats',
+    name: 'Quick Stats',
+    description: 'Active trades, exchanges, and alerts at a glance',
+    icon: Zap,
+    category: 'portfolio',
+    defaultSize: { w: 4, h: 2 },
+    minSize: { minW: 4, minH: 2 },
+    supportsFullscreen: false,
+    requiresSymbol: false,
+    component: QuickStatsContent,
+  },
+  {
+    type: 'asset-allocation',
+    name: 'Asset Allocation',
+    description: 'Donut chart showing portfolio composition by asset',
+    icon: PieChart,
+    category: 'portfolio',
+    defaultSize: { w: 4, h: 4 },
+    minSize: { minW: 4, minH: 3 },
+    supportsFullscreen: false,
+    requiresSymbol: false,
+    component: AssetAllocationContent,
+  },
+  {
+    type: 'market-movers',
+    name: 'Market Movers',
+    description: 'Top crypto gainers and losers with bar chart',
+    icon: BarChart3,
+    category: 'portfolio',
+    defaultSize: { w: 4, h: 3 },
+    minSize: { minW: 3, minH: 2 },
+    supportsFullscreen: false,
+    requiresSymbol: false,
+    component: MarketMoversContent,
+  },
+  {
+    type: 'recent-transactions',
+    name: 'Recent Transactions',
+    description: 'Latest buy/sell transactions across exchanges',
+    icon: ScrollText,
+    category: 'portfolio',
+    defaultSize: { w: 4, h: 3 },
+    minSize: { minW: 3, minH: 2 },
+    supportsFullscreen: false,
+    requiresSymbol: false,
+    component: RecentTransactionsContent,
+  },
+  {
+    type: 'btc-cycles',
+    name: 'BTC Market Cycles',
+    description: 'Interactive Bitcoin bull/bear cycle timeline with predictions',
+    icon: Bitcoin,
+    category: 'portfolio',
+    defaultSize: { w: 4, h: 4 },
+    minSize: { minW: 3, minH: 3 },
+    supportsFullscreen: true,
+    requiresSymbol: false,
+    component: BtcCyclesContent,
+  },
+
+  // TradingView widgets
+  {
+    type: 'tv-advanced-chart',
+    name: 'Advanced Chart',
+    description: 'Full-featured TradingView chart with indicators and drawing tools',
+    icon: CandlestickChart,
+    category: 'tradingview-chart',
+    defaultSize: { w: 8, h: 4 },
+    minSize: { minW: 6, minH: 3 },
+    supportsFullscreen: true,
+    requiresSymbol: true,
+    defaultSymbol: 'BINANCE:BTCUSDT',
+    noPadding: true,
+    component: TvAdvancedChartContent,
+  },
+  {
+    type: 'tv-mini-chart',
+    name: 'Mini Chart',
+    description: 'Compact price chart with symbol overview',
+    icon: LineChart,
+    category: 'tradingview-chart',
+    defaultSize: { w: 4, h: 3 },
+    minSize: { minW: 3, minH: 2 },
+    supportsFullscreen: false,
+    requiresSymbol: true,
+    defaultSymbol: 'BINANCE:BTCUSDT',
+    noPadding: true,
+    component: TvMiniChartContent,
+  },
+  {
+    type: 'tv-symbol-overview',
+    name: 'Symbol Overview',
+    description: 'Price, change, and area chart for a single symbol',
+    icon: SquareActivity,
+    category: 'tradingview-chart',
+    defaultSize: { w: 4, h: 3 },
+    minSize: { minW: 3, minH: 2 },
+    supportsFullscreen: false,
+    requiresSymbol: true,
+    defaultSymbol: 'BINANCE:BTCUSDT',
+    noPadding: true,
+    component: TvSymbolOverviewContent,
+  },
+  {
+    type: 'tv-ticker-tape',
+    name: 'Ticker Tape',
+    description: 'Horizontally scrolling ticker tape with crypto prices',
+    icon: Tag,
+    category: 'tradingview-ticker',
+    defaultSize: { w: 12, h: 1 },
+    minSize: { minW: 6, minH: 1 },
+    supportsFullscreen: false,
+    requiresSymbol: false,
+    noPadding: true,
+    component: TvTickerTapeContent,
+  },
+  {
+    type: 'tv-single-ticker',
+    name: 'Single Ticker',
+    description: 'Price ticker for a single cryptocurrency',
+    icon: Sparkles,
+    category: 'tradingview-ticker',
+    defaultSize: { w: 3, h: 2 },
+    minSize: { minW: 2, minH: 1 },
+    supportsFullscreen: false,
+    requiresSymbol: true,
+    defaultSymbol: 'BINANCE:BTCUSDT',
+    noPadding: true,
+    component: TvSingleTickerContent,
+  },
+  {
+    type: 'tv-screener',
+    name: 'Crypto Screener',
+    description: 'Full crypto market screener with sorting and filters',
+    icon: List,
+    category: 'tradingview-screener',
+    defaultSize: { w: 6, h: 4 },
+    minSize: { minW: 4, minH: 3 },
+    supportsFullscreen: true,
+    requiresSymbol: false,
+    noPadding: true,
+    component: TvScreenerContent,
+  },
+  {
+    type: 'tv-heatmap',
+    name: 'Crypto Heatmap',
+    description: 'Visual heatmap of the crypto market by market cap',
+    icon: Grid3X3,
+    category: 'tradingview-screener',
+    defaultSize: { w: 6, h: 4 },
+    minSize: { minW: 4, minH: 3 },
+    supportsFullscreen: true,
+    requiresSymbol: false,
+    noPadding: true,
+    component: TvHeatmapContent,
+  },
+  {
+    type: 'tv-technical-analysis',
+    name: 'Technical Analysis',
+    description: 'Buy/sell/neutral gauges based on technical indicators',
+    icon: Thermometer,
+    category: 'tradingview-analysis',
+    defaultSize: { w: 4, h: 4 },
+    minSize: { minW: 3, minH: 3 },
+    supportsFullscreen: false,
+    requiresSymbol: true,
+    defaultSymbol: 'BINANCE:BTCUSDT',
+    noPadding: true,
+    component: TvTechnicalAnalysisContent,
+  },
+  {
+    type: 'tv-top-stories',
+    name: 'Top Stories',
+    description: 'Latest crypto market news and headlines from TradingView',
+    icon: Newspaper,
+    category: 'tradingview-news',
+    defaultSize: { w: 4, h: 3 },
+    minSize: { minW: 3, minH: 2 },
+    supportsFullscreen: false,
+    requiresSymbol: false,
+    noPadding: true,
+    component: TopStoriesContent,
+  },
+];
+
+export function getWidgetDefinition(type: string): WidgetDefinition | undefined {
+  return widgetRegistry.find((w) => w.type === type);
+}
+
+export const CATEGORIES: readonly CategoryEntry[] = [
+  { value: 'all', label: 'All Widgets' },
+  { value: 'portfolio', label: 'Portfolio' },
+  { value: 'tradingview-chart', label: 'Charts' },
+  { value: 'tradingview-ticker', label: 'Tickers' },
+  { value: 'tradingview-screener', label: 'Screeners' },
+  { value: 'tradingview-news', label: 'News' },
+  { value: 'tradingview-analysis', label: 'Analysis' },
+] as const;
